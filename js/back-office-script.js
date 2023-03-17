@@ -67,7 +67,7 @@ async function deleteProduct(id) {
                     Authorization: "Bearer " + API_KEY
                 }
             });
-            alert("Hai eliminato l'appuntamento il prodotto.");
+            alert("Hai eliminato il prodotto.");
             window.location.assign("./index.html")
         } catch (error) {
             console.log(error);
