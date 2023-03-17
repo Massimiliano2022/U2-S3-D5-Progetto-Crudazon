@@ -57,21 +57,21 @@ window.onload = async () => {
 }
 
 async function deleteProduct(id) {
-    try {
-        const response = await fetch(`https://striveschool-api.herokuapp.com/api/product/${id}`, {
-            method: "DELETE",
-            headers: {
-                Authorization: "Bearer " + API_KEY
-            }
-        });
-        if (response.ok) {
-            console.log("Product deleted successfully!");
-            const row = document.getElementById("selected-product");
-            row.remove();
-        } else {
-            console.log("Error deleting product!");
+    const hasAccepted = confirm("Sei sicuro di voler elimilare questo prodotto?");
+    if (hasAccepted) {
+        try {
+            console.log("DELETE");
+            const response = await fetch(`https://striveschool-api.herokuapp.com/api/product/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: "Bearer " + API_KEY
+                }
+            });
+            alert("Hai eliminato l'appuntamento il prodotto.");
+            window.location.assign("./index.html")
+        } catch (error) {
+            console.log(error);
         }
-    } catch (error) {
-        console.log(error);
+
     }
 }
