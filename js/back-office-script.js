@@ -51,9 +51,15 @@ window.onload = async () => {
         } catch (error) {
             console.log(error);
         }
-    }else{
+    } else {
         const divCard = document.getElementById("selected-product");
         divCard.classList.add("d-none");
+
+        const btnAddProduct = document.querySelector("#btn-add-product")
+        btnAddProduct.addEventListener('click', async () => {
+            addNewProduct();
+        });
+
     }
 }
 
@@ -157,4 +163,34 @@ async function deleteProduct(selectedProduct) {
         }
 
     }
+}
+
+async function addNewProduct(){
+
+    console.log("AGGIUNGI UN NUOVO PRODOTTO");
+
+    const nameInput = document.querySelector('#name');
+    const descriptionInput = document.querySelector('#description');
+    const brandInput = document.querySelector('#brand');
+    const imageUrlInput = document.querySelector('#imageUrl');
+    const priceInput = document.querySelector('#price');
+
+    try {
+        const response = await fetch(`https://striveschool-api.herokuapp.com/api/product/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + API_KEY
+            },
+            body: JSON.stringify({ name: nameInput.value, description: descriptionInput.value, brand: brandInput.value, imageUrl: imageUrlInput.value, price: priceInput.value })
+        });
+        const data = await response.json();
+        console.log(data);
+        alert("Hai inserito il nuovo prodotto.");
+        window.location.assign("./index.html");
+    } catch (error) {
+        console.log(error);
+    }
+
+
 }
